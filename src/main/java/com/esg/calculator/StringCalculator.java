@@ -36,6 +36,7 @@ public class StringCalculator {
             negativeNumbers.add(i);
           }
         })
+        .filter(i -> i<=1000)
         .sum();
 
     if(!negativeNumbers.isEmpty()){

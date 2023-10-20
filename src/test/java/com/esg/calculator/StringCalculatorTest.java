@@ -74,4 +74,16 @@ public class StringCalculatorTest {
     Throwable thrown = assertThrows(InvalidInputException.class, () -> calculator.add("2,-4,3,-5"));
     assertEquals("Negatives not allowed: -4,-5", thrown.getMessage());
   }
+
+  @Test
+  public void add_numbersGreaterThan1000_shouldBeIgnored() {
+    int result = calculator.add("1001,2");
+    assertEquals(result, 2);
+  }
+
+  @Test
+  public void add_numbersNotGreaterThan1000_shouldBeIncluded() {
+    int result = calculator.add("1000,2");
+    assertEquals(result, 1002);
+  }
 }
