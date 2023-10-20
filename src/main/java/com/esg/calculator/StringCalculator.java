@@ -3,16 +3,16 @@ package com.esg.calculator;
 public class StringCalculator {
 
   public int add(String numbers) {
-    if(numbers.equals("")) {
+    if(numbers.equals("")){
       return 0;
     }
 
-    if(numbers.length() == 1) {
-      return Integer.parseInt(numbers);
+    String[] arr = numbers.split(",");
+    int total = 0;
+    for(String s : arr) {
+      total += Integer.parseInt(s);
     }
-
-    return Integer.parseInt(String.valueOf(numbers.charAt(0))) +
-        Integer.parseInt(String.valueOf(numbers.charAt(2)));
+    return total;
   }
 
 }

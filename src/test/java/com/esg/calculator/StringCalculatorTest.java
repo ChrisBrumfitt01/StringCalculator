@@ -20,9 +20,27 @@ public class StringCalculatorTest {
   }
 
   @Test
-  public void add_twoNumbers_shouldAddTheNumbers() {
+  public void add_twoNumbers_shouldAdd1And2AndReturn3() {
     int result = calculator.add("1,2");
     assertEquals(result, 3);
+  }
+
+  @Test
+  public void add_twoNumbers_shouldAdd3And4AndReturn7() {
+    int result = calculator.add("3,4");
+    assertEquals(result, 7);
+  }
+
+  @Test
+  public void add_threeNumbers_shouldAddAndReturnResult() {
+    int result = calculator.add("1,2,3");
+    assertEquals(result, 6);
+  }
+
+  @Test
+  public void add_fourNumbers_shouldAddAndReturnResult() {
+    int result = calculator.add("1,2,3,4");
+    assertEquals(result, 10);
   }
 
 }
