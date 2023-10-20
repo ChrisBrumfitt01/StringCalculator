@@ -43,4 +43,10 @@ public class StringCalculatorTest {
     assertEquals(result, 10);
   }
 
+  @Test
+  public void add_newLine_shouldAddWhenUsingNewLineOrCommaAsDelimiter() {
+    int result = calculator.add("1\n2,3");
+    assertEquals(result, 6);
+  }
+
 }

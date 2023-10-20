@@ -7,7 +7,7 @@ public class StringCalculator {
       return 0;
     }
 
-    String[] arr = numbers.split(",");
+    String[] arr = numbers.split("[,\n]");
     int total = 0;
     for(String s : arr) {
       total += Integer.parseInt(s);
