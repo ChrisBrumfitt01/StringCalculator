@@ -2,6 +2,7 @@ package com.esg.calculator;
 
 import com.esg.calculator.exception.InvalidInputException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,22 +13,30 @@ public class StringCalculator {
       return 0;
     }
 
+    String[] numbersArr = generateListOfNumbers(numbers);
+    return doCalculation(numbersArr);
+  }
+
+  private String[] generateListOfNumbers(String numbers) {
     String delimiter = ",";
     if (numbers.startsWith("//")) {
       delimiter = String.valueOf(numbers.charAt(2));
       numbers = numbers.substring(4);
     }
 
-    String[] arr = numbers.split(String.format("[%s\n]", delimiter));
-    int total = 0;
+    return numbers.split(String.format("[%s\n]", delimiter));
+  }
+
+  private int doCalculation(String[] numbers) {
     List<Integer> negativeNumbers = new ArrayList<>();
-    for(String s : arr) {
-      int currentNumber = Integer.parseInt(s);
-      if(currentNumber < 0) {
-        negativeNumbers.add(currentNumber);
-      }
-      total += currentNumber;
-    }
+    int total = Arrays.stream(numbers)
+        .mapToInt(Integer::parseInt)
+        .peek(i -> {
+          if (i < 0) {
+            negativeNumbers.add(i);
+          }
+        })
+        .sum();
 
     if(!negativeNumbers.isEmpty()){
       String negativeNumbersStr = negativeNumbers.stream()
