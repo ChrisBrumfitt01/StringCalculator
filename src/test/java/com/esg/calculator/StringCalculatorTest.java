@@ -49,4 +49,16 @@ public class StringCalculatorTest {
     assertEquals(result, 6);
   }
 
+  @Test
+  public void add_customDelimiter_shouldAddNumbersWhenCustomDelimiterIsProvided() {
+    int result = calculator.add("//;\n1;2");
+    assertEquals(result, 3);
+  }
+
+  @Test
+  public void add_customDelimiter_shouldAddNumbersWhenExclamationDelimiterIsProvided() {
+    int result = calculator.add("//!\n1!2!3");
+    assertEquals(result, 6);
+  }
+
 }
