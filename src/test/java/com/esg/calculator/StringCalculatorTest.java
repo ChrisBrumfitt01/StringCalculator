@@ -1,6 +1,8 @@
 package com.esg.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.esg.calculator.exception.InvalidInputException;
 import org.junit.jupiter.api.Test;
 
 public class StringCalculatorTest {
@@ -61,4 +63,15 @@ public class StringCalculatorTest {
     assertEquals(result, 6);
   }
 
+  @Test
+  public void add_withNegativeNumber_shouldThrowException() {
+    Throwable thrown = assertThrows(InvalidInputException.class, () -> calculator.add("-1,2"));
+    assertEquals("Negatives not allowed: -1", thrown.getMessage());
+  }
+
+  @Test
+  public void add_withNegativeNumbers_shouldThrowExceptionWithExpectedMessage() {
+    Throwable thrown = assertThrows(InvalidInputException.class, () -> calculator.add("2,-4,3,-5"));
+    assertEquals("Negatives not allowed: -4,-5", thrown.getMessage());
+  }
 }
