@@ -21,23 +21,36 @@ public class StringCalculator {
   }
 
   private String[] generateListOfNumbers(String numbers) {
-    String delimiter = ",";
+    List<String> delimiters = new ArrayList<>();
 
     if (numbers.startsWith("//")) {
-      delimiter = "";
-      for(char c : numbers.substring(2).toCharArray()){
-        if (c == '\n' || c == ']'){
+
+      String delimiter = "";
+      for (char c : numbers.substring(2).toCharArray()) {
+        if (c == '\n') {
+          if(!delimiter.equals("")){
+            delimiters.add(delimiter);
+          }
           break;
         }
         if (c == '[') {
           continue;
         }
+        if (c == ']') {
+          delimiters.add(delimiter);
+          delimiter = "";
+          continue;
+        }
         delimiter += getEscapedCharacter(c);
       }
+
       numbers = numbers.substring(numbers.indexOf("\n")+1);
+
+    } else {
+      delimiters.add(",");
     }
 
-    return numbers.split(getRegex(delimiter));
+    return numbers.split(getRegex(delimiters));
   }
 
   private String getEscapedCharacter(char c) {
@@ -47,8 +60,9 @@ public class StringCalculator {
     return Character.toString(c);
   }
 
-  private String getRegex(String delimiter) {
-    return String.format("%s|\n", delimiter);
+  private String getRegex(List<String> delimiters) {
+    delimiters.add("\n");
+    return String.join("|", delimiters);
   }
 
   private int doCalculation(String[] numbers) {
