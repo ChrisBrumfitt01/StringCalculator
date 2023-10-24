@@ -92,4 +92,10 @@ public class StringCalculatorTest {
     int result = calculator.add("//[!!!]\n1!!!2!!!3");
     assertEquals(result, 6);
   }
+
+  @Test
+  public void add_delimitersOfAnyLength_shouldBeHandled_includingSpecialRegexCharacters() {
+    int result = calculator.add("//[|||]\n1|||2|||3");
+    assertEquals(result, 6);
+  }
 }

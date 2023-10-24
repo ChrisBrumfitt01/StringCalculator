@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 public class StringCalculator {
 
+  private List<Character> SPECIAL_CHARACTERS = List.of('.', '[', ']', '{', '}', '(', ')', '<', '>', '*',
+      '+', '-', '=', '!', '?', '^', '$', '|');
+
   public int add(String numbers) {
     if (numbers.equals("")){
       return 0;
@@ -29,12 +32,23 @@ public class StringCalculator {
         if (c == '[') {
           continue;
         }
-        delimiter += c;
+        delimiter += getEscapedCharacter(c);
       }
       numbers = numbers.substring(numbers.indexOf("\n")+1);
     }
 
-    return numbers.split(String.format("%s|\n", delimiter));
+    return numbers.split(getRegex(delimiter));
+  }
+
+  private String getEscapedCharacter(char c) {
+    if(SPECIAL_CHARACTERS.contains(c)){
+      return "\\" + c;
+    }
+    return Character.toString(c);
+  }
+
+  private String getRegex(String delimiter) {
+    return String.format("%s|\n", delimiter);
   }
 
   private int doCalculation(String[] numbers) {
