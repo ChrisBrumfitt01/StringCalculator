@@ -110,4 +110,10 @@ public class StringCalculatorTest {
     int result = calculator.add("//[|||][%%]\n1|||2%%3");
     assertEquals(result, 6);
   }
+
+  @Test
+  public void add_delimiterIncludingBackSlash_shouldBeHandled() {
+    int result = calculator.add("//\\\\\\\n1\\\\\\2\\\\\\3");
+    assertEquals(result, 6);
+  }
 }

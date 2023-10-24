@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class StringCalculator {
 
   private List<Character> SPECIAL_CHARACTERS = List.of('.', '[', ']', '{', '}', '(', ')', '<', '>', '*',
-      '+', '-', '=', '!', '?', '^', '$', '|');
+      '+', '-', '=', '!', '?', '^', '$', '|', '\\');
 
   public int add(String numbers) {
     if (numbers.equals("")){
