@@ -23,34 +23,40 @@ public class StringCalculator {
   private String[] generateListOfNumbers(String numbers) {
     List<String> delimiters = new ArrayList<>();
 
-    if (numbers.startsWith("//")) {
+    if(!numbers.startsWith("//")) {
+
+      delimiters.add(",");
+      return numbers.split(getRegex(delimiters));
+
+    } else {
 
       String delimiter = "";
+      loop:
       for (char c : numbers.substring(2).toCharArray()) {
-        if (c == '\n') {
-          if(!delimiter.equals("")){
+        switch (c) {
+          case '\n':
+            if(!delimiter.equals("")){
+              delimiters.add(delimiter);
+            }
+            break loop;
+
+          case '[':
+            continue;
+
+          case ']':
             delimiters.add(delimiter);
-          }
-          break;
+            delimiter = "";
+            continue;
+
+          default:
+            delimiter += getEscapedCharacter(c);
+            break;
         }
-        if (c == '[') {
-          continue;
-        }
-        if (c == ']') {
-          delimiters.add(delimiter);
-          delimiter = "";
-          continue;
-        }
-        delimiter += getEscapedCharacter(c);
       }
 
       numbers = numbers.substring(numbers.indexOf("\n")+1);
-
-    } else {
-      delimiters.add(",");
+      return numbers.split(getRegex(delimiters));
     }
-
-    return numbers.split(getRegex(delimiters));
   }
 
   private String getEscapedCharacter(char c) {
