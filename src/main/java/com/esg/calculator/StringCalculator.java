@@ -19,12 +19,22 @@ public class StringCalculator {
 
   private String[] generateListOfNumbers(String numbers) {
     String delimiter = ",";
+
     if (numbers.startsWith("//")) {
-      delimiter = String.valueOf(numbers.charAt(2));
-      numbers = numbers.substring(4);
+      delimiter = "";
+      for(char c : numbers.substring(2).toCharArray()){
+        if (c == '\n' || c == ']'){
+          break;
+        }
+        if (c == '[') {
+          continue;
+        }
+        delimiter += c;
+      }
+      numbers = numbers.substring(numbers.indexOf("\n")+1);
     }
 
-    return numbers.split(String.format("[%s\n]", delimiter));
+    return numbers.split(String.format("%s|\n", delimiter));
   }
 
   private int doCalculation(String[] numbers) {

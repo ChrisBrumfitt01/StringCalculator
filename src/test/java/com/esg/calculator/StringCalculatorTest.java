@@ -86,4 +86,10 @@ public class StringCalculatorTest {
     int result = calculator.add("1000,2");
     assertEquals(result, 1002);
   }
+
+  @Test
+  public void add_delimitersOfAnyLength_shouldBeHandled() {
+    int result = calculator.add("//[!!!]\n1!!!2!!!3");
+    assertEquals(result, 6);
+  }
 }
